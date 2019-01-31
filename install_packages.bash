@@ -1,3 +1,5 @@
+# Code by Giovanni Laudanno @Giappo
+
 #!/bin/bash
 
 github_address=$1
