@@ -11,4 +11,5 @@ How to contribute is to be discussed soon.
 * [Peregrine wiki](https://redmine.hpc.rug.nl/redmine/projects/peregrine/wiki)
 * [Richel's YouTube video's about R](https://www.youtube.com/playlist?list=PLu8_ZyzXyRDH2iTiBxg6zJ0CZnxNEYMp-)
   * [Create an R package in 8 minutes](https://www.youtube.com/watch?v=MoszELQFrvQ&list=PLu8_ZyzXyRDH2iTiBxg6zJ0CZnxNEYMp-&index=2)
+  * Create an R package with `Rcpp` in 10 minutes: [ogv](http://richelbilderbeek.nl/rcpp.ogv) [YouTube](https://youtu.be/SgXVRHqh9l8)
 * [Richel's presentations about R](https://github.com/richelbilderbeek/PresentationsAboutR)
