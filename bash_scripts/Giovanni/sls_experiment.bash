@@ -2,6 +2,8 @@
 #SBATCH --time=00:57:58 --partition=gelifes
 project=sls
 my_email=glaudanno@gmail.com
+cd /home/$USER/
+mkdir -p $project
 cd /home/$USER/$project/
 mkdir -p results
 mkdir -p data

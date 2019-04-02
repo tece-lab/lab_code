@@ -8,7 +8,8 @@
 #SBATCH --output=install_packages.log
 
 github_address=$1
-
+cd /home/$USER/
+mkdir -p Rlibrary
 chmod +x /home/$USER/Rlibrary/
 
 module load R

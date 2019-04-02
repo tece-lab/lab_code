@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=00:57:58 --partition=gelifes
+#SBATCH --time=00:00:58 --partition=gelifes
 my_github=Giappo
 project=sls
 my_email=glaudanno@gmail.com
@@ -17,16 +17,10 @@ mu_s=$4
 cond=$5
 crown_age=$6
 shift_time=$7
-min_sims=$8
-max_sims=$9
-chosen_partition=${10}
+seed=$8
+chosen_partition=${9}
 
-R_file_name=R-${project}-${lambda_m}-${mu_m}-${lambda_s}-${mu_s}-${cond}-${crown_age}-${shift_time}-${chosen_partition}.R
-
-chmod +x install_packages.bash
-./install_packages.bash "${my_github}/${project}"
-
-sleep 30
+R_file_name=R-${project}-${seed}-${lambda_m}-${mu_m}-${lambda_s}-${mu_s}-${cond}-${crown_age}-${shift_time}-${chosen_partition}.R
 
 echo ".libPaths(new = file.path(substring(getwd(),1,13), 'Rlibrary')); library(\"$project\"); args <- as.numeric(commandArgs(TRUE))" > $R_file_name
 echo "sls:::sls_main(seed=args[1],sim_pars=c(args[2],args[3],args[4],args[5]),cond=args[6],l_2 = sim_get_standard_l_2(crown_age = args[7],shift_time = args[8]),loglik_functions=sls_logliks_experiment())" >> $R_file_name
@@ -41,19 +35,15 @@ echo "sls:::sls_main(seed=args[1],sim_pars=c(args[2],args[3],args[4],args[5]),co
 #7: $crown_age = Main clade starting time
 #8: $shift_time = Subclade starting time
 
-for((s = min_sims; s <= max_sims; s++)); do
-
-bash_file_name=bash-${project}-${s}-${lambda_m}-${mu_m}-${lambda_s}-${mu_s}-${cond}-${crown_age}-${shift_time}.bash
-ml_name=ml-${project}-${s}-${lambda_m}-${mu_m}-${lambda_s}-${mu_s}-${cond}-${crown_age}-${shift_time}
+bash_file_name=bash-${project}-${seed}-${lambda_m}-${mu_m}-${lambda_s}-${mu_s}-${cond}-${crown_age}-${shift_time}.bash
+ml_name=ml-${project}-${seed}-${lambda_m}-${mu_m}-${lambda_s}-${mu_s}-${cond}-${crown_age}-${shift_time}
 
 echo "#!/bin/bash" > $bash_file_name
-echo "#SBATCH --time=119:59:00" >> $bash_file_name
+echo "#SBATCH --time=71:58:00" >> $bash_file_name
 echo "module load R" >> $bash_file_name
-echo "Rscript $R_file_name $s $lambda_m $mu_m $lambda_s $mu_s $cond $crown_age $shift_time" >> $bash_file_name
+echo "Rscript $R_file_name $seed $lambda_m $mu_m $lambda_s $mu_s $cond $crown_age $shift_time" >> $bash_file_name
+echo "rm $R_file_name" >> $bash_file_name
 echo "rm $bash_file_name" >> $bash_file_name
 
 #NEVER ASK FOR MORE THAN 9GB OF MEMORY!
 sbatch --partition=$chosen_partition --mem=9GB --job-name=$ml_name --mail-type=FAIL,TIME_LIMIT --mail-user=$my_email --output=logs/$ml_name.log $bash_file_name
-
-done
-
