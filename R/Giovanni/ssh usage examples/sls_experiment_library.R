@@ -29,7 +29,7 @@ get_available_accounts <- function() {
 #' @return dropbox folder address
 get_dropbox_folder <- function() {
 
-  if (!require("RJSONIO")) {install.packages("RJSONIO")}
+  while (!require("RJSONIO")) {install.packages("RJSONIO")}
 
   if (Sys.info()['sysname'] == 'Darwin')
   {
