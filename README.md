@@ -1,4 +1,9 @@
 # Lab code
+
+Branch|[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)
+---|---
+`master`|[![Build Status](https://travis-ci.org/richelbilderbeek/thesis.svg?branch=master)](https://travis-ci.org/richelbilderbeek/thesis)
+
 This repository serves as a collection of useful and frequently used code by members of @tece-lab.
 
 # Folder structure
