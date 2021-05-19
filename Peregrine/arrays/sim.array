@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#### SLURM settings ####
+#SBATCH --ntasks=1
+#SBATCH --job-name=example
+#SBATCH --output=slurm.%j.out
+#SBATCH --time=0-00:02
+#SBATCH --mem=4048
+#SBATCH --array=1-2
+
+module load R
+
+repl=$SLURM_ARRAY_TASK_ID
+
+theta=42
+
+Rscript perform_analysis.R ${repl} $theta
